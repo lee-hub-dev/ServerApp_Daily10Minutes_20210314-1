@@ -2,6 +2,7 @@ package kr.co.neoplus.serverapp_daily10minutes_20210314.utils
 
 import android.util.Log
 import okhttp3.*
+import org.json.JSONObject
 import java.io.IOException
 
 class ServerUtil {
@@ -36,6 +37,7 @@ class ServerUtil {
 
                     val bodyString = response.body!!.string()
 
+                    val jsonObj = JSONObject(bodyString)
                     Log.d("서버응답본문", bodyString)
 
                 }
