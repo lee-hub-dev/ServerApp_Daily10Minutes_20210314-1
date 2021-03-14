@@ -1,9 +1,7 @@
 package kr.co.neoplus.serverapp_daily10minutes_20210314.utils
 
-import okhttp3.FormBody
-import okhttp3.OkHttp
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
+import java.io.IOException
 
 class ServerUtil {
 
@@ -27,7 +25,21 @@ class ServerUtil {
 
             val client = OkHttpClient()
 
-            client.newCall(request)
+            client.newCall(request).enqueue(object : Callback {
+
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+
+                    Log.d("서버응답본문", bodyString)
+
+                }
+
+            })
 
         }
 
