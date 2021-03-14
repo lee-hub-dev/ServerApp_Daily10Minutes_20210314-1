@@ -40,6 +40,15 @@ class ServerUtil {
                     val jsonObj = JSONObject(bodyString)
                     Log.d("서버응답본문", jsonObj.toString())
 
+                    val codeNum = jsonObj.getInt("code")
+
+                    if (codeNum == 200) {
+                        Log.d("로그인결과", "성공")
+                    }
+                    else {
+                        Log.d("로그인결과", "실패")
+                    }
+
                 }
 
             })
