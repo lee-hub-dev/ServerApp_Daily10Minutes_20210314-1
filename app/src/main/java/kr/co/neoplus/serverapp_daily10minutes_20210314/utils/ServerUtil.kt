@@ -47,6 +47,8 @@ class ServerUtil {
                     }
                     else {
                         Log.d("로그인결과", "실패")
+                        val msgStr = jsonObj.getString("message")
+                        Log.e("로그인실패사유", msgStr)
                     }
 
                 }
