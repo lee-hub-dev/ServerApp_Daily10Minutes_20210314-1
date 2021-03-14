@@ -2,6 +2,7 @@ package kr.co.neoplus.serverapp_daily10minutes_20210314
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
@@ -13,6 +14,11 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        loginBtn.setOnClickListener {
+            val inputId = emailEdt.text.toString()
+            val inputPW = pwEdt.text.toString()
+        }
     }
 
     override fun setValues() {
