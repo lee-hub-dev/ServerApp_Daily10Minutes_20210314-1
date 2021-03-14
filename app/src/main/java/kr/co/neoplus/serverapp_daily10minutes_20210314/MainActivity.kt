@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.co.neoplus.serverapp_daily10minutes_20210314.utils.ServerUtil
+import org.json.JSONObject
 
 class MainActivity : BaseActivity() {
 
@@ -19,15 +20,20 @@ class MainActivity : BaseActivity() {
         loginBtn.setOnClickListener {
 
             val inputId = emailEdt.text.toString()
-            val inputPW = pwEdt.text.toString()
+            val inputPw = pwEdt.text.toString()
 
-            ServerUtil.postRequestLogin(inputId, inputPW)
+            ServerUtil.postRequestLogin(inputId, inputPw, object : ServerUtil.JsonResponseHandler {
+                override fun onResponses(json: JSONObject) {
+                }
 
-        }
+            })
+
+            }
+
     }
 
     override fun setValues() {
-    }
 
+    }
 
 }

@@ -15,7 +15,7 @@ class ServerUtil {
 
         val HOST_URL = "http://15.164.153.174"
 
-        fun postRequestLogin(id : String, pw : String) {
+        fun postRequestLogin(id : String, pw : String, handler: JsonResponseHandler?) {
 
             val urlString = "${HOST_URL}/user"
 
@@ -44,16 +44,7 @@ class ServerUtil {
                     val jsonObj = JSONObject(bodyString)
                     Log.d("서버응답본문", jsonObj.toString())
 
-                    val codeNum = jsonObj.getInt("code")
-
-                    if (codeNum == 200) {
-                        Log.d("로그인결과", "성공")
-                    }
-                    else {
-                        Log.d("로그인결과", "실패")
-                        val msgStr = jsonObj.getString("message")
-                        Log.e("로그인실패사유", msgStr)
-                    }
+                    handler?.onResponse(jsonObj)
 
                 }
 
@@ -64,3 +55,4 @@ class ServerUtil {
     }
 
 }
+
