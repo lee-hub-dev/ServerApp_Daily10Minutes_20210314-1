@@ -7,6 +7,10 @@ import java.io.IOException
 
 class ServerUtil {
 
+    interface JsonResponseHandler {
+        fun onResponses(json : JSONObject)
+    }
+
     companion object {
 
         val HOST_URL = "http://15.164.153.174"
