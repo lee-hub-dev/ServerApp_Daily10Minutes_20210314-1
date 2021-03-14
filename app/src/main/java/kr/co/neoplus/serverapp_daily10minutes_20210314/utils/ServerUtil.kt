@@ -1,6 +1,8 @@
 package kr.co.neoplus.serverapp_daily10minutes_20210314.utils
 
 import okhttp3.FormBody
+import okhttp3.OkHttp
+import okhttp3.OkHttpClient
 import okhttp3.Request
 
 class ServerUtil {
@@ -22,6 +24,10 @@ class ServerUtil {
                 .url(urlString)
                 .post(formData)
                 .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request)
 
         }
 
