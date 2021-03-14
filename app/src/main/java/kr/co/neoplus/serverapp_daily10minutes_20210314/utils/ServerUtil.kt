@@ -38,7 +38,7 @@ class ServerUtil {
                     val bodyString = response.body!!.string()
 
                     val jsonObj = JSONObject(bodyString)
-                    Log.d("서버응답본문", bodyString)
+                    Log.d("서버응답본문", jsonObj.toString())
 
                 }
 
