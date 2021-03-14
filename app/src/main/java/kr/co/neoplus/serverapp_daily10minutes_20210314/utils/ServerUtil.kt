@@ -1,6 +1,7 @@
 package kr.co.neoplus.serverapp_daily10minutes_20210314.utils
 
 import okhttp3.FormBody
+import okhttp3.Request
 
 class ServerUtil {
 
@@ -15,6 +16,11 @@ class ServerUtil {
             val formData = FormBody.Builder()
                 .add("email", id)
                 .add("password", pw)
+                .build()
+
+            val request = Request.Builder()
+                .url(urlString)
+                .post(formData)
                 .build()
 
         }
