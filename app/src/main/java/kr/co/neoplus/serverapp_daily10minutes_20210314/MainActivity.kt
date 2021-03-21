@@ -19,6 +19,11 @@ class MainActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        signUpBtn.setOnClickListener {
+            val myIntent = intent(mContext, SignUpActivity::class.java)
+            startActivity(myIntent)
+        }
+
         loginBtn.setOnClickListener {
 
             val inputId = emailEdt.text.toString()
@@ -32,8 +37,7 @@ class MainActivity : BaseActivity() {
                     val code = json.getInt("code")
 
                     if (code == 200) {
-                    }
-                    else {
+                    } else {
                         val message = json.getString("message")
                         runOnUiThread {
                             Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
@@ -42,6 +46,7 @@ class MainActivity : BaseActivity() {
                 }
             })
         }
+    }
 
     override fun setValues() {
     }
