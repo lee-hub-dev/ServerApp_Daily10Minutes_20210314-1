@@ -2,6 +2,7 @@ package kr.co.neoplus.serverapp_daily10minutes_20210314
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.co.neoplus.serverapp_daily10minutes_20210314.utils.ServerUtil
 import org.json.JSONObject
@@ -24,11 +25,19 @@ class MainActivity : BaseActivity() {
 
             ServerUtil.postRequestLogin(inputId, inputPw, object : ServerUtil.JsonResponseHandler {
                 override fun onResponses(json: JSONObject) {
+
+                    Log.d("화면입장", json.toString())
+
+                    val code = json.getInt("code")
+
+                    if (code == 200) {
+                    }
+                    else {
+                    }
+
                 }
 
             })
-
-            }
 
     }
 
