@@ -44,7 +44,5 @@ class MainActivity : BaseActivity() {
         }
 
     override fun setValues() {
-
     }
-
 }
