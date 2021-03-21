@@ -88,6 +88,10 @@ class ServerUtil {
 
         }
 
+        fun getRequestEmailCheck(email: String, handler: JsonResponseHandler?) {
+
+        }
+
     }
 
 }

@@ -17,7 +17,14 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+        checkEmailBtn.setOnClickListener {
+
+            val inputEmail = emailEdt.text.toString()
+
+        }
+
         signUpBtn.setOnClickListener {
+
             val email = emailEdt.text.toString()
             val pw = pwEdt.text.toString()
             val nick = nicknameEdt.text.toString()
