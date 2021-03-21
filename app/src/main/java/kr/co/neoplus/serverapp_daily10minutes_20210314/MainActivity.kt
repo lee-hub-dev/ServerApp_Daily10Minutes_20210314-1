@@ -35,15 +35,13 @@ class MainActivity : BaseActivity() {
                     }
                     else {
                         val message = json.getString("message")
-                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        runOnUiThread {
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    }
-
                 }
-
             })
-
-    }
+        }
 
     override fun setValues() {
 
