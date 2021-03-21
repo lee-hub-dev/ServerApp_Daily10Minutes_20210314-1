@@ -9,7 +9,7 @@ import java.io.IOException
 class ServerUtil {
 
     interface JsonResponseHandler {
-        fun onResponses(json : JSONObject)
+        fun onResponse(json : JSONObject)
     }
 
     companion object {
@@ -64,7 +64,7 @@ class ServerUtil {
                     .build()
 
             val request = Request.Builder()
-                    .url(uriString)
+                    .url(urlString)
                     .put(formData)
                     .build()
 
@@ -80,7 +80,7 @@ class ServerUtil {
                     val bodyString = response.body!!.string()
                     val jsonObj = JSONObject(bodyString)
                     Log.d("서버응답내용", jsonObj.toString())
-                    handler?.onResponses(jsonObj)
+                    handler?.onResponse(jsonObj)
 
                 }
 

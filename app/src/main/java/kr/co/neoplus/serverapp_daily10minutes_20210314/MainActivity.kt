@@ -1,5 +1,6 @@
 package kr.co.neoplus.serverapp_daily10minutes_20210314
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +21,7 @@ class MainActivity : BaseActivity() {
     override fun setupEvents() {
 
         signUpBtn.setOnClickListener {
-            val myIntent = intent(mContext, SignUpActivity::class.java)
+            val myIntent = Intent(mContext, SignUpActivity::class.java)
             startActivity(myIntent)
         }
 
@@ -30,7 +31,7 @@ class MainActivity : BaseActivity() {
             val inputPw = pwEdt.text.toString()
 
             ServerUtil.postRequestLogin(inputId, inputPw, object : ServerUtil.JsonResponseHandler {
-                override fun onResponses(json: JSONObject) {
+                override fun onResponse(json: JSONObject) {
 
                     Log.d("화면입장", json.toString())
 
