@@ -1,27 +1,74 @@
 package kr.co.neoplus.serverapp_daily10minutes_20210314
-
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import kr.co.neoplus.serverapp_daily10minutes_20210314.adapters.ProjectAdapter
 import kr.co.neoplus.serverapp_daily10minutes_20210314.datas.Project
 import kr.co.neoplus.serverapp_daily10minutes_20210314.utils.ContextUtil
 import kr.co.neoplus.serverapp_daily10minutes_20210314.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_view_project_detail.view.*
 import kr.co.neoplus.serverapp_daily10minutes_20210314.ViewProjectDetailActivity
 import org.json.JSONObject
 class MainActivity : BaseActivity() {
+
     val mProjectList = ArrayList<Project>()
+
     lateinit var mAdapter : ProjectAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupEvents()
         setValues()
     }
+
+    override fun onResume() {
+        super.onResume()
+
+//        이 함수는 메인화면이 나타나려고 할때마다 계속 실행됨.
+//        화면에 돌아올때마다, 새 알림이 있는지 서버에 자동으로 물어보게 하자.
+
+        askNewNotification()
+
+    }
+
+//    새 알림이 있는지 서버에 물어보는 함수
+
+    fun askNewNotification() {
+
+        ServerUtil.getRequestNotification(mContext, false, object : ServerUtil.JsonResponseHandler {
+            override fun onResponse(json: JSONObject) {
+
+                val dataObj = json.getJSONObject("data")
+
+                val unreadNotiCount = dataObj.getInt("unread_noti_count")
+
+//                읽을 알림이 없다: 빨간 동그라미 숨김
+//                읽을게 하나라도 있다: 빨간 동그라미 + 4 등의 숫자 겹침
+
+                runOnUiThread {
+                    if (unreadNotiCount == 0) {
+                        notiCountTxt.visibility = View.GONE
+                    }
+                    else {
+                        notiCountTxt.visibility = View.VISIBLE
+//                    몇개인지 숫자도 반영
+                        notiCountTxt.text = unreadNotiCount.toString()
+                    }
+                }
+
+            }
+
+        })
+
+    }
+
+
     override fun setupEvents() {
 //        프로젝트 목록을 누르면 => 상세화면으로 이동
         projectListView.setOnItemClickListener { parent, view, position, id ->
@@ -51,8 +98,43 @@ class MainActivity : BaseActivity() {
             alert.show()
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     override fun setValues() {
+
+//        첫 화면 (메인화면) 에서는 뒤로가기 버튼을 달지 않는다
+//        뒤로가기 버튼을 아예 숨겨두자 (메인에서만)
+
+        backImg.visibility = View.GONE
+
+        notiImg.visibility = View.VISIBLE
+
         mAdapter = ProjectAdapter(mContext, R.layout.project_list_item, mProjectList)
+
         projectListView.adapter = mAdapter
 //        메인화면에 들어오면 => 프로젝트 목록이 뭐뭐있는지 서버에 요청 (ServerUtil 함수 추가)
 //        받아온 결과를 분석해서 => Project() 형태로 만들어서 => mProjectList에 add해주자.

@@ -1,11 +1,6 @@
 package kr.co.neoplu.serverapp_daily10minutes_20210314
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kr.co.neoplu.serverapp_daily10minutes_20210314.adapters.ProjectMemberAdapter
-import kr.co.neoplu.serverapp_daily10minutes_20210314.datas.Project
-import kr.co.neoplu.serverapp_daily10minutes_20210314.datas.User
-import kr.co.neoplu.serverapp_daily10minutes_20210314.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_member_list.*
 import kr.co.neoplus.serverapp_daily10minutes_20210314.BaseActivity
 import kr.co.neoplus.serverapp_daily10minutes_20210314.R

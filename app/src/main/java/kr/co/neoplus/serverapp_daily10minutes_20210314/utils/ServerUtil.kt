@@ -291,7 +291,7 @@ class ServerUtil {
 
             val request = Request.Builder()
                 .url(urlString)
-                .get()
+                .delete()
                 .header("X-Http-Token", ContextUtil.getToken(context))
                 .build()
 
@@ -331,7 +331,176 @@ class ServerUtil {
 
             val urlString = urlBuilder.build().toString()
 
-            Log.d("완성된URL", urlString)
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답본문", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+
+                }
+
+            })
+
+
+        }
+
+//        특정 프로젝트의 참여인원까지 보는 함수
+
+
+        fun getRequestProjectMembers(context : Context, projectId: Int, handler: JsonResponseHandler?) {
+
+//            GET - 주소 완성 양식 2가지 방법.
+//            GET : 조회 => 몇번 글? 상세 조회 =>  /project/5 처럼, 주소를 이어붙이는 식. => Path
+//            GET : 조회 => 게시글목록? 진행중 (조건필터) => /project?status=ONGOING 처럼, 파라미터 주소 나열. => Query
+
+            val urlBuilder = "${HOST_URL}/project".toHttpUrlOrNull()!!.newBuilder()
+            urlBuilder.addEncodedPathSegment(projectId.toString())
+            urlBuilder.addEncodedQueryParameter("need_user_list", true.toString())
+//            urlBuilder.addEncodedQueryParameter("email", email)
+
+            val urlString = urlBuilder.build().toString()
+
+            Log.d("멤버조회URL", urlString)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답본문", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+
+                }
+
+            })
+
+
+        }
+
+
+//        새 알림 있는지 확인하는 함수
+
+        fun getRequestNotification(context : Context, needNotiList : Boolean, handler: JsonResponseHandler?) {
+
+
+            val urlBuilder = "${HOST_URL}/notification".toHttpUrlOrNull()!!.newBuilder()
+            urlBuilder.addEncodedQueryParameter("need_all_notis", needNotiList.toString())
+
+            val urlString = urlBuilder.build().toString()
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답본문", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+
+                }
+
+            })
+
+
+        }
+
+//        프로젝트 / 날짜별 인증글 목록 가져오기
+
+        fun getRequestProjectProofByDate(context : Context, projectId: Int, proofDate: String, handler: JsonResponseHandler?) {
+
+//            GET - 주소 완성 양식 2가지 방법.
+//            GET : 조회 => 몇번 글? 상세 조회 =>  /project/5 처럼, 주소를 이어붙이는 식. => Path
+//            GET : 조회 => 게시글목록? 진행중 (조건필터) => /project?status=ONGOING 처럼, 파라미터 주소 나열. => Query
+
+            val urlBuilder = "${HOST_URL}/project".toHttpUrlOrNull()!!.newBuilder()
+            urlBuilder.addEncodedPathSegment(projectId.toString())
+            urlBuilder.addEncodedQueryParameter("proof_data", proofDate)
+//            urlBuilder.addEncodedQueryParameter("email", email)
+
+            val urlString = urlBuilder.build().toString()
+
+            Log.d("멤버조회URL", urlString)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getToken(context))
+                .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답본문", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+
+                }
+
+            })
+
+
+        }
+
+//
+
+        fun getRequestProjectProofByDate(context : Context, projectId: Int, proofDate: String, handler: JsonResponseHandler?) {
+
+//            GET - 주소 완성 양식 2가지 방법.
+//            GET : 조회 => 몇번 글? 상세 조회 =>  /project/5 처럼, 주소를 이어붙이는 식. => Path
+//            GET : 조회 => 게시글목록? 진행중 (조건필터) => /project?status=ONGOING 처럼, 파라미터 주소 나열. => Query
+
+            val urlBuilder = "${HOST_URL}/project".toHttpUrlOrNull()!!.newBuilder()
+            urlBuilder.addEncodedPathSegment(projectId.toString())
+            urlBuilder.addEncodedQueryParameter("proof_data", proofDate)
+//            urlBuilder.addEncodedQueryParameter("email", email)
+
+            val urlString = urlBuilder.build().toString()
+
+            Log.d("멤버조회URL", urlString)
 
             val request = Request.Builder()
                 .url(urlString)
@@ -364,6 +533,7 @@ class ServerUtil {
     }
 
 }
+
 
 
 

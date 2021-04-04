@@ -1,5 +1,6 @@
 package kr.co.neoplus.serverapp_daily10minutes_20210314
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,7 +24,6 @@ class ViewProjectDetailActivity : BaseActivity() {
 
     lateinit var mProject : Project
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_project_detail)
@@ -32,6 +32,15 @@ class ViewProjectDetailActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+//        인증글 보러가기 늘리면 => 화면 이동
+
+        viewProofBtn.setOnClickListener {
+
+            val myIntent = Intent(mContext, ViewProofActivity::class.java)
+            myIntent.putExtra("project", mProject)
+            startActivity(myIntent)
+        }
 
 //        참가신청 버튼이 눌리면 => 신청 API 호출.
 
